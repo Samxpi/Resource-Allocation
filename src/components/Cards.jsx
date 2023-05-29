@@ -1,10 +1,17 @@
-import React from 'react'
+import React, { useState } from 'react'
+import Modal from './Modal';
+
 
 const Cards = (props) => {
+  const [showModal, setshowModal] = useState(false)
+
+  const toggleModal = () =>{
+    setshowModal(!showModal)
+  }
   return (
-    <div className=" py-10">
+    <div className="py-10 cursor-pointer" onClick={toggleModal}>
       <div className="max-w-sm shadow-lg shadow-gray-600 rounded overflow-hidden">
-        <img src={props.loc} alt=""  className='w-full h-[150px]'/>
+        <img src={props.loc} alt="" className='w-full h-[150px]' />
         <div className='px-10 py-4'>
           <h2 className="text-2xl font-bold font-serif">{props.name}</h2>
           <p>
@@ -14,6 +21,7 @@ const Cards = (props) => {
           </p>
         </div>
       </div>
+      <Modal onClose={toggleModal} visible={showModal} />
     </div>
   );
 }

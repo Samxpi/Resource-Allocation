@@ -1,5 +1,5 @@
 const express = require("express");
-const collection = require("./mongo");
+const collection = require("../routes/mongo");
 const cors = require("cors");
 const app = express();
 app.use(express.json());
@@ -27,6 +27,8 @@ app.post("/", async (req, res) => {
   }
 });
 
-app.listen(8000, () => {
+const PORT = process.env.PORT || 5000; 
+
+app.listen(PORT, () => {
   console.log("port connected");
 });
