@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { BsArrowLeftShort, BsFillJournalBookmarkFill } from "react-icons/bs";
 import { MdDashboard, MdFreeCancellation } from "react-icons/md"
 import { RiLogoutBoxRFill } from "react-icons/ri" 
+import { Link } from "react-router-dom";
 import logo from '../assets/png-transparent-manipal-academy-of-higher-education-sikkim-manipal-university-sikkim-manipal-institute-of-technology-manipal-university-jaipur-student-text-people-logo.png'
 
 const Sidebar = () => {
@@ -25,20 +26,20 @@ const Sidebar = () => {
 
           <ul className="pt-2">
             <li className="text-gray-300 text-sm flex items-center gap-x-4 p-2 hover:bg-slate-300/50 rounded-md mt-2">
-              <span className="text-2xl block float-left"><MdDashboard /></span>
-              <span className={`text-base font-medium flex-1 ${open && "hidden"}`}>Home</span>
+              <Link className="text-2xl block float-left" to={'/home'}><MdDashboard /></Link>
+              <Link className={`text-base font-medium flex-1 ${open && "hidden"}`} to={'/home'}>Home</Link>
             </li>
             <li className="text-gray-300 text-sm flex items-center gap-x-4 p-2 hover:bg-slate-300/50 rounded-md mt-2">
-              <span className="text-2xl block float-left"><BsFillJournalBookmarkFill /></span>
-              <span className={`text-base font-medium flex-1 ${open && "hidden"}`}>Bookings</span>
+              <Link to={'/Bookings'} className="text-2xl block float-left"><BsFillJournalBookmarkFill /></Link>
+              <Link className={`text-base font-medium flex-1 ${open && "hidden"}`} to={'/Bookings'}>Bookings</Link>
             </li>
             <li className="text-gray-300 text-sm flex items-center gap-x-4 p-2 hover:bg-slate-300/50 rounded-md mt-2">
               <span className="text-2xl block float-left"><MdFreeCancellation /></span>
               <span className={`text-base font-medium flex-1 ${open && "hidden"}`}>Cancellations</span>
             </li>
             <li className="text-gray-300 text-sm flex items-center gap-x-4 hover:bg-slate-300/50 rounded-md mt-[500px] p-2">
-              <span className="text-2xl block float-left"><RiLogoutBoxRFill /></span>
-              <span className={`text-base font-medium flex-1 ${open && "hidden"}`}>Logout</span>
+              <Link to={'/'} className="text-2xl block float-left"><RiLogoutBoxRFill /></Link>
+              <Link to={'/'} className={`text-base font-medium flex-1 ${open && "hidden"}`}>Logout</Link>
             </li>
           </ul>
         </div>
