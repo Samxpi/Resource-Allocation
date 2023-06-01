@@ -3,19 +3,35 @@ import { DatePicker } from "antd";
 import { AiOutlineCloseCircle } from "react-icons/ai";
 import dayjs from "dayjs";
 import axios from "axios";
+import { changeConfirmLocale } from "antd/es/modal/locale";
 
 const { RangePicker } = DatePicker;
 
 const Modal = ({ visible, onClose }) => {
   const [dates, setDate] = useState([]);
-  const [eventName, setEventName] = useState("");
-  const [eventDetails, setEventDetails] = useState("");
-  const [phoneNumber, setPhoneNumber] = useState("");
+  const [eventName, setEventName] = useState(false);
+  const [eventDetails, setEventDetails] = useState(false);
+  const [phoneNumber, setPhoneNumber] = useState(false);
+  const [Technician,setTechnician] = useState(false);
+  const [Cleaning,setCleaning] = useState(false);
+  const [Sound,setSound] = useState(false);
   console.log(dates);
 
   const disablePastDates = (current) => {
     return current && current < dayjs().endOf("day");
   };
+
+
+  function changeSound(){
+    setSound(val=>!val)
+  }
+  
+  function changeTechnician(){
+    setTechnician(val=>!val)
+  }
+  function changeCleaning(){
+    setCleaning(val=>!val)
+  }
 
   function filterByDates(values) {
     setDate(
@@ -107,11 +123,11 @@ const Modal = ({ visible, onClose }) => {
           </div>
           <div className="flex flex-row px-2">
             <p>Sound Equipment</p>
-            <input type="checkbox" name="" id="" className=" mx-2 my-2" />
+            <input type="checkbox" name="" id="" className=" mx-2 my-2" checked={Sound} onClick={changeSound}/>
             <p className="ml-7">Cleaning</p>
-            <input type="checkbox" name="" id="" className="mx-2 my-2" />
+            <input type="checkbox" name="" id="" className="mx-2 my-2" checked={Cleaning} onClick={changeCleaning}/>
             <p className="ml-7">Technician</p>
-            <input type="checkbox" name="" id="" className="mx-2 my-2" />
+            <input type="checkbox" name="" id="" className="mx-2 my-2" checked={Technician} onClick={changeTechnician}/>
           </div>
           <div className="flex p-2">
             <button

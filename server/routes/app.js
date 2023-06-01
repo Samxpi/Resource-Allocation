@@ -1,5 +1,5 @@
 const express = require("express");
-const collection = require("../routes/mongo");
+const loginData = require("../routes/mongo");
 const cors = require("cors");
 const app = express();
 app.use(express.json());
@@ -12,9 +12,9 @@ app.post("/", async (req, res) => {
   const { email, password } = req.body;
 
   try {
-    const check = await collection.findOne({ email: email,password:password });
-    const check1 = await collection.findOne({ password: password });
-
+    const check = await loginData.findOne({ email: email,password:password });
+    const check1 = await loginData.findOne({ password: password });
+    
     if (check) {
       res.json("exist");
     } else if (!check1) {
