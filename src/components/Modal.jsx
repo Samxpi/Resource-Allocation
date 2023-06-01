@@ -3,7 +3,6 @@ import { DatePicker } from "antd";
 import { AiOutlineCloseCircle } from "react-icons/ai";
 import dayjs from "dayjs";
 import axios from "axios";
-import { changeConfirmLocale } from "antd/es/modal/locale";
 
 const { RangePicker } = DatePicker;
 
@@ -15,12 +14,10 @@ const Modal = ({ visible, onClose }) => {
   const [Technician,setTechnician] = useState(false);
   const [Cleaning,setCleaning] = useState(false);
   const [Sound,setSound] = useState(false);
-  console.log(dates);
 
   const disablePastDates = (current) => {
     return current && current < dayjs().endOf("day");
   };
-
 
   function changeSound(){
     setSound(val=>!val)
@@ -45,11 +42,17 @@ const Modal = ({ visible, onClose }) => {
     e.preventDefault();
 
     try{
-      await axios.post("http://localhost:8000/",{
-        eventName,
-        eventDetails,
-        phoneNumber,
-        dates,
+      axios.post("http://localhost:8000/",{
+        eventName: eventName,
+        eventDetails: eventDetails,
+        phoneNumber: phoneNumber,
+        dates: dates,
+        Technician: Technician,
+        Cleaning: Cleaning,
+        Sound: Sound
+      })
+      .then((res)=>{
+        console.log(res)
       })
     } catch(e){
       console.log(e)
@@ -123,11 +126,11 @@ const Modal = ({ visible, onClose }) => {
           </div>
           <div className="flex flex-row px-2">
             <p>Sound Equipment</p>
-            <input type="checkbox" name="" id="" className=" mx-2 my-2" checked={Sound} onClick={changeSound}/>
+            <input type="checkbox" name="" id="" className=" mx-2 my-2" checked={Sound}  onChange={changeSound}/>
             <p className="ml-7">Cleaning</p>
-            <input type="checkbox" name="" id="" className="mx-2 my-2" checked={Cleaning} onClick={changeCleaning}/>
+            <input type="checkbox" name="" id="" className="mx-2 my-2" checked={Cleaning}  onChange={changeCleaning}/>
             <p className="ml-7">Technician</p>
-            <input type="checkbox" name="" id="" className="mx-2 my-2" checked={Technician} onClick={changeTechnician}/>
+            <input type="checkbox" name="" id="" className="mx-2 my-2" checked={Technician}  onChange={changeTechnician}/>
           </div>
           <div className="flex p-2">
             <button

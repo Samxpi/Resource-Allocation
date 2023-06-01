@@ -27,6 +27,13 @@ app.post("/", async (req, res) => {
   }
 });
 
+app.post('',(req,res)=>{
+  res.setHeader("Content-type", "text/html");
+  res.write(req.body);
+  res.send();
+})
+
+
 app.listen(8000, () => {
   console.log("port connected");
 });
