@@ -10,6 +10,6 @@ const loginSchema = mongoose.Schema({
       required: true,
     },
   });
-  const loginData = mongoose.model("collections", loginSchema);
+  const loginData = mongoose.model("loginSchema", loginSchema);
 
   module.exports = loginData;
