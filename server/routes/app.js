@@ -1,5 +1,7 @@
 const express = require("express");
-const loginData = require("../routes/mongo");
+const loginData = require("../routes/mongo.js");
+const form = require("../models/formModel.js")
+
 const cors = require("cors");
 const app = express();
 app.use(express.json());
@@ -27,10 +29,15 @@ app.post("/", async (req, res) => {
   }
 });
 
-app.post('',(req,res)=>{
-  res.setHeader("Content-type", "text/html");
-  res.write(req.body);
-  res.send();
+app.post('/home', async (req,res)=>{
+  const newForm = new form(req.body);
+  try{
+    const savedForm = await newForm.save();
+    res.status(200);
+    console.log(savedForm);
+  }catch(e){
+    res.status(500).json(e)
+  }
 })
 
 

@@ -40,20 +40,17 @@ const Modal = ({ visible, onClose }) => {
 
   async function submit(e){
     e.preventDefault();
-
+    var formData = {
+      eventName: eventName,
+      eventDetails: eventDetails,
+      phoneNumber: phoneNumber,
+      dates: dates,
+      Technician: Technician,
+      Cleaning: Cleaning,
+      Sound: Sound
+    }
     try{
-      axios.post("http://localhost:8000/",{
-        eventName: eventName,
-        eventDetails: eventDetails,
-        phoneNumber: phoneNumber,
-        dates: dates,
-        Technician: Technician,
-        Cleaning: Cleaning,
-        Sound: Sound
-      })
-      .then((res)=>{
-        console.log(res)
-      })
+      axios.post("http://localhost:8000/home",formData);
     } catch(e){
       console.log(e)
     }
