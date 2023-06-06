@@ -13,11 +13,11 @@ app.get("/", cors(), (req, res) => {});
 
 app.post("/", async (req, res) => {
   const { email, password } = req.body;
-  console.log(req.body);  
+ 
   try {
     const check = await loginData.findOne({ email: email,password:password });
     const check1 = await loginData.findOne({ password: password });
-    window.log(check);
+
     if (check) {
       res.json("exist");
     } else if (!check1) {
