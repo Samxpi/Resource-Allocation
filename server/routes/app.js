@@ -1,6 +1,6 @@
 const express = require("express");
 const loginData = require("../routes/mongo");
-const formData = require("../models/formModel.js");
+const form = require("../models/formModel.js")
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const app = express();
@@ -30,15 +30,16 @@ app.post("/", async (req, res) => {
   }
 });
 
-
-// app.post("/home",(req,res)=>{
-//   const newFormData = new formData(req.body);
-    
-//   newFormData.save((err,doc)=>{
-//     if(err) return console.log(err);
-//     console.log(doc); 
-//   });
-// })
+app.post('/home', async (req,res)=>{
+  const newForm = new form(req.body);
+  try{
+    const savedForm = await newForm.save();
+    res.status(200);
+    console.log(savedForm);
+  }catch(e){
+    res.status(500).json(e)
+  }
+})
 
 app.listen(8000, () => {
   console.log("port connected");

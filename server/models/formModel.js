@@ -3,30 +3,31 @@ const mongoose = require("mongoose")
 const formSchema = mongoose.Schema({
     eventName:{
         type: String,
-        required: true
+        required: true,
     },
     eventDetails:{
         type: String,
-        required: true
+        required: true,
     },
-    phoneNumber:{
-        type: String,
-        required: true
+    phoneNumber: {
+        type: Number,
+        required: true,
     },
     dates:{
         type: Array,
-        required:true
+        required: true,
     },
-    Technician:{
-        type:Boolean
+    Technician: {
+        type: Boolean,
     },
-    Cleaning:{
-        type:Boolean
+    Cleaning: {
+        type: Boolean,
     },
-    Sound:{
-        type:Boolean
+    Sound: {
+        type: Boolean,
     }
   });
-  const formData = mongoose.model("formSchema", formSchema);
+  
+  const form = mongoose.model("form", formSchema);
 
-  module.exports = formData;
+  module.exports = form;
