@@ -1,5 +1,6 @@
 const express = require("express");
-const loginData = require("../routes/mongo");
+const loginForm = require("../models/LoginModel");
+const dbConfig = require("../routes/mongo");
 const form = require("../models/formModel.js")
 const cors = require("cors");
 const bodyParser = require("body-parser");
@@ -12,12 +13,13 @@ app.use(bodyParser.json());
 app.get("/", cors(), (req, res) => {});
 
 app.post("/", async (req, res) => {
-  const { email, password } = req.body;
-  console.log(req.body);  
+  let loginData = new loginForm(req.body);
+  let email = req.body.email;
+  let password = req.body.password;
   try {
     const check = await loginData.findOne({ email: email,password:password });
     const check1 = await loginData.findOne({ password: password });
-    window.log(check);
+    console.log(check);
     if (check) {
       res.json("exist");
     } else if (!check1) {
@@ -26,7 +28,7 @@ app.post("/", async (req, res) => {
       res.json("notexist");
     }
   } catch {
-    res.json("notexist"); 
+    res.json("Wpass"); 
   }
 });
 

@@ -21,7 +21,7 @@ const Login2 = () => {
         })
         .then((res) => {
           if (res.data === "exist") {
-            history("/home");
+            history("/home/");
           } else if (res.data === "notexist") {
             alert("User not present");
           } else {

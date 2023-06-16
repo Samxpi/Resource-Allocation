@@ -12,7 +12,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Login2 />} />
           <Route
-            path="/home"
+            path="/home/"
             element={
               <>
                 <Sidebar />

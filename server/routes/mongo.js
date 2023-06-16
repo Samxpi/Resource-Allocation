@@ -1,10 +1,9 @@
 const mongoose = require("mongoose");
-const loginData = require("../models/LoginModel.js")
-const DB =
-  "mongodb+srv://admin:GPnskuWWFcXbJMsv@cluster-0.tbadlvs.mongodb.net/UserLogin?retryWrites=true&w=majority";
+const db_link =
+  "mongodb+srv://Admin:56T7R3QQyz2YwVHJ@react-login.rkpbxzc.mongodb.net/resourceAlloc?retryWrites=true&w=majority";
 
 mongoose
-  .connect(DB)
+  .connect(db_link)
   .then(() => {
     console.log("mongodb connected");
   })
@@ -12,5 +11,4 @@ mongoose
     console.log("Failed");
   });
 
-
-module.exports = loginData;
+module.exports = mongoose;
