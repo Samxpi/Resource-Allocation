@@ -43,6 +43,17 @@ app.post('/home', async (req,res)=>{
   }
 })
 
+app.post('/approver', async (req,res)=>{
+  const newForm = new form(req.body);
+  try{
+    const savedForm = await newForm.save();
+    res.status(200);
+    console.log(savedForm);
+  }catch(e){
+    res.status(500).json(e)
+  }
+})
+
 app.listen(8000, () => {
   connect()
   console.log("port connected");
