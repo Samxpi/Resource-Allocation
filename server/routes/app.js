@@ -43,20 +43,18 @@ app.post("/home", async (req, res) => {
   }
 });
 
-app.post("/approver", async (req, res) => {
-  const newForm = new form(req.body);
-  const { dates } = req.body;
+app.post('/approver', async (req, res) => {
+  //const { dates } = req.body;
   const current_date = new Date();
-  if (dates >= current_date) {
     try {
-      const savedForm = await newForm.save();
-      res.status(200);
-      console.log(savedForm);
+      const forms = await form.find({ dates: { $gte: current_date } }).exec();
+      res.status(200).json(forms);
+      console.log(forms);
     } catch (e) {
       res.status(500).json(e);
     }
-  }
 });
+
 
 app.listen(8000, () => {
   connect();
