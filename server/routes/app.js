@@ -46,13 +46,12 @@ app.post("/home", async (req, res) => {
 app.post("/approver",async (req, res) => {
   const currentDate = new Date()
   try{
-    const results = await form.find({'dates.0' : { $gte: currentDate}}).exec();
+    const results = await form.find({ startDate : { $gte: currentDate}}).exec();
     console.log(results);
   } catch (err) {
     res.status(500).json(err);
   }
 })
-
 
 
 app.listen(8000, () => {

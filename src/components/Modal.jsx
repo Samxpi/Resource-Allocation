@@ -34,9 +34,24 @@ const Modal = ({ visible, onClose }) => {
   function changeCleaning(){
     setCleaning(val=>!val)
   }
+  // function filterByDates(values) {
+  //   const startDate = values[0].startOf('day');
+  //   const endDate = values[1].endOf('day');
+  //   setDate([startDate, endDate]);
+  // }
+  // function filterByDates(values) {
+  //   const startDate = values[0]?.startOf('day') || null;
+  //   const endDate = values[1]?.endOf('day') || null;
+  //   setDate([startDate, endDate]);
+  // }
+  // function filterByDates(values) {
+  //   const startDate = values[0] ? values[0].startOf('day') : null;
+  //   const endDate = values[1] ? values[1].endOf('day') : null;
+  //   setDate([startDate, endDate]);
+  // }  
   function filterByDates(values) {
-    const startDate = values[0].startOf('day');
-    const endDate = values[1].endOf('day');
+    const startDate = dayjs(values[0]).add(1, 'day').startOf('day');
+    const endDate = dayjs(values[1]).endOf('day');
     setDate([startDate, endDate]);
   }
 
