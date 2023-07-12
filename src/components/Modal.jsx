@@ -17,9 +17,12 @@ const Modal = ({ visible, onClose }) => {
   const [Cleaning,setCleaning] = useState(false);
   const [Sound,setSound] = useState(false);
 
+
+
   const disablePastDates = (current) => {
     return current && current < dayjs().endOf("day");
   };
+
 
   function changeSound(){
     setSound(val=>!val)
@@ -31,14 +34,19 @@ const Modal = ({ visible, onClose }) => {
   function changeCleaning(){
     setCleaning(val=>!val)
   }
-
   function filterByDates(values) {
-    setDate(
-      values.map((item) => {
-        return dayjs(item).format("DD-MM-YYYY");
-      })
-    );
+    const startDate = values[0].startOf('day');
+    const endDate = values[1].endOf('day');
+    setDate([startDate, endDate]);
   }
+
+  // function filterByDates(values) {
+  //   setDate(
+  //     values.map((item) => {
+  //       return dayjs(item).format("DD-MM-YYYY");
+  //     })
+  //   );
+  // }
 
   async function submit(e){
     e.preventDefault();
@@ -46,7 +54,8 @@ const Modal = ({ visible, onClose }) => {
       eventName: eventName,
       eventDetails: eventDetails,
       phoneNumber: phoneNumber,
-      dates: dates,
+      startDate: dates[0],
+      endDate: dates[1],
       Technician: Technician,
       Cleaning: Cleaning,
       Sound: Sound

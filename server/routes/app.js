@@ -43,26 +43,15 @@ app.post("/home", async (req, res) => {
   }
 });
 
-// app.post("/approver", async (req, res) => {
-//   const current_date = new Date();
-//   try {
-//     const forms = await form.find({ dates: { $gt: current_date } }).exec();
-//     res.status(200);
-//     console.log(forms);
-//   } catch (e) {
-//     res.status(500).json(e);
-//   }
-// });
-app.post("/approver", async (req, res) => {
-  const current_date = new Date();
-  try {
-    const forms = await form.find({ "dates.0": { $gte: current_date } }).exec();
-    res.status(200);
-    console.log(forms);
-  } catch (e) {
-    res.status(500).json(e);
+app.post("/approver",async (req, res) => {
+  const currentDate = new Date()
+  try{
+    const results = await form.find({'dates.0' : { $gte: currentDate}}).exec();
+    console.log(results);
+  } catch (err) {
+    res.status(500).json(err);
   }
-});
+})
 
 
 
