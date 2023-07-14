@@ -4,6 +4,7 @@ import Login2 from "./components/Login2";
 import Sidebar from "./components/Sidebar";
 import Bookings from "./components/Bookings";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Cancellation from "./components/Cancellation";
 
 function App() {
   return (
@@ -26,6 +27,15 @@ function App() {
               <>
                 <Sidebar />
                 <Bookings />
+              </>
+            }
+          />
+          <Route
+            path="/Cancellation"
+            element={
+              <>
+                <Sidebar />
+                <Cancellation/>
               </>
             }
           />

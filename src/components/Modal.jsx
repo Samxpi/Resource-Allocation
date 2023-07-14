@@ -77,6 +77,7 @@ const Modal = ({ visible, onClose }) => {
     }
     try{
       axios.post("http://localhost:8000/home",formData);
+      onClose();
     } catch(e){
       console.log(e)
     }

@@ -34,8 +34,8 @@ const Sidebar = () => {
               <Link className={`text-base font-medium flex-1 ${open && "hidden"}`} to={'/Bookings'}>Bookings</Link>
             </li>
             <li className="text-gray-300 text-sm flex items-center gap-x-4 p-2 hover:bg-slate-300/50 rounded-md mt-2">
-              <span className="text-2xl block float-left"><MdFreeCancellation /></span>
-              <span className={`text-base font-medium flex-1 ${open && "hidden"}`}>Cancellations</span>
+              <Link className="text-2xl block float-left" to={'/Cancellation'}><MdFreeCancellation /></Link>
+              <Link className={`text-base font-medium flex-1 ${open && "hidden"}`} to={'/Cancellation'}>Cancellations</Link>
             </li>
             <li className="text-gray-300 text-sm flex items-center gap-x-4 hover:bg-slate-300/50 rounded-md mt-[500px] p-2">
               <Link to={'/'} className="text-2xl block float-left"><RiLogoutBoxRFill /></Link>
