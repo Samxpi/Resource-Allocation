@@ -1,7 +1,7 @@
 const express = require("express");
 const loginForm = require("../models/LoginModel");
-const dbConfig = require("../routes/mongo");
-const form = require("../models/formModel.js")
+const connect = require("../routes/mongo");
+const form = require("../models/formModel.js");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const app = express();
@@ -17,8 +17,8 @@ app.post("/", async (req, res) => {
   let email = req.body.email;
   let password = req.body.password;
   try {
-    const check = await loginData.findOne({ email: email,password:password });
-    const check1 = await loginData.findOne({ password: password });
+    const check = await loginForm.findOne({ email: email, password: password });
+    const check1 = await loginForm.findOne({ password: password });
     console.log(check);
     if (check) {
       res.json("exist");
@@ -28,21 +28,33 @@ app.post("/", async (req, res) => {
       res.json("notexist");
     }
   } catch {
-    res.json("Wpass"); 
+    res.json("Wpass");
   }
 });
 
-app.post('/home', async (req,res)=>{
+app.post("/home", async (req, res) => {
   const newForm = new form(req.body);
-  try{
+  try {
     const savedForm = await newForm.save();
     res.status(200);
     console.log(savedForm);
-  }catch(e){
-    res.status(500).json(e)
+  } catch (e) {
+    res.status(500).json(e);
+  }
+});
+
+app.post("/approver",async (req, res) => {
+  const currentDate = new Date()
+  try{
+    const results = await form.find({ startDate : { $gte: currentDate}}).exec();
+    console.log(results);
+  } catch (err) {
+    res.status(500).json(err);
   }
 })
 
+
 app.listen(8000, () => {
+  connect();
   console.log("port connected");
 });

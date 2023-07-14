@@ -1,6 +1,6 @@
 const mongoose = require("mongoose") 
 
-const formSchema = mongoose.Schema({
+const formSchema = new mongoose.Schema({
     eventName:{
         type: String,
         required: true,
@@ -13,8 +13,12 @@ const formSchema = mongoose.Schema({
         type: Number,
         required: true,
     },
-    dates:{
-        type: Array,
+    startDate:{
+        type: Date,
+        required: true,
+    },
+    endDate:{
+        type: Date,
         required: true,
     },
     Technician: {
@@ -28,6 +32,6 @@ const formSchema = mongoose.Schema({
     }
   });
   
-  const form = mongoose.model("form", formSchema);
+  const form = mongoose.model("forms", formSchema);
 
   module.exports = form;
