@@ -1,0 +1,10 @@
+const express = require('express')
+const router = express.Router()
+const loginControl = require('./../controller/loginController')
+const formControl = require('./../controller/formController')
+
+router.route('/').post(loginControl.login)
+router.route('/home').post(formControl.forms)
+router.route('/approver').post(formControl.sortForm)
+
+module.exports = router

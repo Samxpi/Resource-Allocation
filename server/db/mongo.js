@@ -13,8 +13,5 @@ const connect = async () => {
 mongoose.connection.on('disconnect',() => {
   console.log('Disconnect from Database');
 })
-mongoose.connection.on('disconnect',() => {
-  console.log('Disconnect from Connected');
-})
 
 module.exports = connect;
