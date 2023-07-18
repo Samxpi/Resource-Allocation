@@ -14,26 +14,22 @@ const Login2 = () => {
     e.preventDefault();
 
     try {
-      await axios
-        .post("http://localhost:8000/", {
-          email,
-          password,
-        })
-        .then((res) => {
-          if (res.data === "exist") {
-            history("/home/");
-          } else if (res.data === "notexist") {
-            alert("User not present");
-          } else {
-            alert("Wrong Password");
-          }
-        })
-        .catch((e) => {
-          alert("Wrong Details");
-          console.log(e);
-        });
-    } catch (e) {
-      console.log(e);
+      const response = await axios.post("http://localhost:8000/login", { // Update the URL to the login endpoint
+        email,
+        password,
+      });
+
+      if (response.status === 200) {
+        // Handle the successful login here, such as saving the token or redirecting to another page
+        history("/home/");
+      } else {
+        // Handle other possible responses
+        alert("Login failed");
+      }
+    } catch (error) {
+      // Handle error responses
+      alert("Login failed");
+      console.log(error);
     }
   }
 

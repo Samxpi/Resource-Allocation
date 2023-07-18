@@ -10,7 +10,7 @@ const Login = () => {
   return (
     <div>
       <div className="flex items-center justify-center">
-        <h1 className="text-2xl font-bold">Select which you want to book</h1>
+        <h1 className="text-2xl font-bold">Please choose the resource you would like to reserve</h1>
       </div>
       
       <div className="grid grid-cols-2 justify-items-center">

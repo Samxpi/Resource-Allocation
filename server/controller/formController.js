@@ -10,7 +10,7 @@ exports.forms = async (req, res) => {
     res.status(500).json(e);
   }
 };
-
+//need the email in form when sending it to database
 exports.sortForm = async (req, res) => {
   const currentDate = new Date();
   try {
