@@ -4,9 +4,11 @@ import Modal from './Modal';
 
 const Cards = (props) => {
   const [showModal, setshowModal] = useState(false)
-
   const toggleModal = () =>{
     setshowModal(!showModal)
+    document.cookie = props.name+";max-age=0";
+    document.cookie = "resourcename="+props.name;
+ 
   }
   return (
     <div className="py-10 cursor-pointer" onClick={toggleModal}>
@@ -26,4 +28,4 @@ const Cards = (props) => {
   );
 }
 
-export default Cards
+export default Cards;

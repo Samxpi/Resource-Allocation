@@ -1,6 +1,15 @@
-const mongoose = require("mongoose") 
+const mongoose = require("mongoose") ;
+const dater =() =>{
+    let d = Date();
+    a = d.toString();
+    return a;
+}
 
 const formSchema = new mongoose.Schema({
+    resourceName:{
+        type:String,
+        required:true
+    },
     eventName:{
         type: String,
         required: true,
@@ -8,6 +17,11 @@ const formSchema = new mongoose.Schema({
     eventDetails:{
         type: String,
         required: true,
+    },
+    approvedTime:{
+        type: String,
+        default: dater,
+        select: false,
     },
     phoneNumber: {
         type: Number,
