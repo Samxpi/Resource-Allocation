@@ -16,7 +16,7 @@ const Modal = ({ visible, onClose }) => {
   const [Cleaning,setCleaning] = useState(false);
   const [Sound,setSound] = useState(false);
   const resourceName = document.cookie.split(';')[0].split('=')[1];
-  console.log(resourceName);
+
   const disablePastDates = (current) => {
     return current && current < dayjs().endOf("day");
   };
