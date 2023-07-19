@@ -1,13 +1,15 @@
 import React, { useState } from 'react'
 import Modal from './Modal';
 
-
 const Cards = (props) => {
   const [showModal, setshowModal] = useState(false)
+  
 
   const toggleModal = () =>{
     setshowModal(!showModal)
+    
   }
+  
   return (
     <div className="py-10 cursor-pointer" onClick={toggleModal}>
       <div className="max-w-sm shadow-lg shadow-gray-600 rounded overflow-hidden">
@@ -26,4 +28,6 @@ const Cards = (props) => {
   );
 }
 
-export default Cards
+export default Cards;
+
+
