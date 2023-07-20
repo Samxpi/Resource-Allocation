@@ -5,7 +5,6 @@ import dayjs from "dayjs";
 import axios from "axios";
 
 
-
 const { RangePicker } = DatePicker;
 
 const Modal = ({ visible, onClose }) => {
@@ -16,8 +15,7 @@ const Modal = ({ visible, onClose }) => {
   const [Technician,setTechnician] = useState(false);
   const [Cleaning,setCleaning] = useState(false);
   const [Sound,setSound] = useState(false);
-
-
+  const resourceName = document.cookie.split(';')[0].split('=')[1];
 
   const disablePastDates = (current) => {
     return current && current < dayjs().endOf("day");
@@ -40,9 +38,11 @@ const Modal = ({ visible, onClose }) => {
     setDate([startDate, endDate]);
   }
 
+ 
   async function submit(e){
     e.preventDefault();
     var formData = {
+      resourceName: resourceName,
       eventName: eventName,
       eventDetails: eventDetails,
       phoneNumber: phoneNumber,
