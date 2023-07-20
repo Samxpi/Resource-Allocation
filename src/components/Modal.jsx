@@ -80,7 +80,7 @@ const Modal = ({ visible, onClose }) => {
           />
         </div>
         <form action="" method="post">
-          <h1 className="text-3xl pt-2 px-4">{resourceName}</h1>
+          <h1 className="text-3xl pt-2 px-4">Resource Form</h1>
           <div className="flex flex-row p-2 justify-between">
             <div className="flex flex-col">
               <p className="py-2 text-l font-bold">Event Name</p>
