@@ -1,10 +1,10 @@
 const loginForm = require("./../models/LoginModel");
 const jwt = require("jsonwebtoken");
-const signToken = (id) => {
-  return jwt.sign({ id: id }, process.env.JWT_SECRET_KEY, {
+const signToken = (id,role) => {
+  return jwt.sign({ id: id , role: role}, process.env.JWT_SECRET_KEY, {
     expiresIn: process.env.JWT_EXPIRY,
   });
-};
+}; // payload change now it comprises of both id and role
 
 //signup
 exports.signup = async (req, res) => {
@@ -15,7 +15,7 @@ exports.signup = async (req, res) => {
       role: req.body.role,
     });
     console.log(newUser);
-    const token = signToken(newUser._id);
+    const token = signToken(newUser._id,newUser.role);
     res.status(201).json({
       status: "success",
       token,
@@ -47,7 +47,7 @@ exports.login = async (req, res) => {
 
     console.log(user); // Log the user object for debugging purposes
 
-    const token = signToken(user._id); // Generate a token for the authenticated user
+    const token = signToken(user._id,user.role); // Generate a token for the authenticated user
 
     res.status(200).json({
       status: "success",
@@ -62,34 +62,53 @@ exports.login = async (req, res) => {
   }
 };
 
-// route protect
-exports.protect = (req, res, next) => {
+//verify function is working properly
+exports.verify = (req, res, next) => {
   try {
     let token;
-
-    if (
-      req.headers.authorization &&
-      req.headers.authorization.startsWith("Bearer ")
-    ) {
-      token = req.headers.authorization.split(' ')[1];
+    //token is not present
+    if (!req.headers.authorization) {
+      return res
+        .status(401)
+        .json({ status: "failed", message: "please login to continue" });
+    }
+    //split between bearer and jwt token
+    if (req.headers.authorization.startsWith("Bearer ")) {
+      token = req.headers.authorization.split(" ")[1];
     } else {
-      throw new Error('Login required for access');
+      return res.status(401).json({error: "Invalid token"})
+    }
+    //token verification
+    const verified = jwt.verify(token, process.env.JWT_SECRET_KEY);
+    if (!verified) {
+      return res.status(403).json({ status: "failed", message: "forbidden" });
+    }
+    if (!verified.role) {
+      return res.status(403).json({ status: "failed", message: "No role found in the token" });
     }
 
-    jwt.verify(token, process.env.JWT_SECRET_KEY, (err, decoded) => {
-      if (err) {
-        throw new Error('Access Denied');
-      }
-      
-      req.user = decoded;
-      next();
-    });
+    req.user = verified;
+   // console.log('User Role:', req.user.role); // Log the user's role for debugging
+
+    // console.log(req.user) for debugging purposes
+    next();
   } catch (err) {
-    res.status(401).json({
+    res.status(500).json({
       error: err.message,
-      message: "Unauthorized",
+      message: "Internal server error",
     });
   }
 };
 
+exports.restrict = (...role) => {
+  return (req, res, next) => {
+    // console.log('User Role:', req.user.role); for debugging purposes
+   // console.log('Allowed Roles:', role); // Log the user's role for debugging
+    if (!role.includes(req.user.role)) {
+      res.status(403).json({ message: 'Forbidden' });
+    } else {
+      next();
+    }
+  };
+};
 

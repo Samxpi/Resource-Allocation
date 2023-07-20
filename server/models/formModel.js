@@ -1,7 +1,7 @@
 const mongoose = require("mongoose") ;
 const dater =() =>{
     let d = Date();
-    a = d.toString();
+    let a = d.toString();
     return a;
 }
 
