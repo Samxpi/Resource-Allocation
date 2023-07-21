@@ -1,10 +1,9 @@
 const loginForm = require("./../models/LoginModel");
 const jwt = require("jsonwebtoken");
-const signToken = (id,role) => {
-  return jwt.sign({ id: id , role: role}, process.env.JWT_SECRET_KEY, {
-    expiresIn: process.env.JWT_EXPIRY,
-  });
-}; // payload change now it comprises of both id and role
+const createSend = require('./../utilities/jwtUtils')
+const sendEmail = require('./../utilities/email')
+const crypto = require("crypto");
+
 
 //signup
 exports.signup = async (req, res) => {
@@ -15,14 +14,7 @@ exports.signup = async (req, res) => {
       role: req.body.role,
     });
     console.log(newUser);
-    const token = signToken(newUser._id,newUser.role);
-    res.status(201).json({
-      status: "success",
-      token,
-      data: {
-        user: newUser,
-      },
-    });
+    createSend(newUser,200,res)
   } catch (err) {
     res.status(409).json({
       error: err.message,
@@ -47,12 +39,7 @@ exports.login = async (req, res) => {
 
     console.log(user); // Log the user object for debugging purposes
 
-    const token = signToken(user._id,user.role); // Generate a token for the authenticated user
-
-    res.status(200).json({
-      status: "success",
-      token,
-    });
+    createSend(user,200,res)
   } catch (err) {
     // If an error occurs during the login process
     res.status(500).json({
@@ -111,4 +98,3 @@ exports.restrict = (...role) => {
     }
   };
 };
-
