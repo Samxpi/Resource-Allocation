@@ -1,6 +1,7 @@
 const mongoose = require("mongoose") 
 const validator = require("validator")
 const bcrypt = require("bcryptjs")
+const crypto = require('crypto')
 const loginSchema = mongoose.Schema({
     email: {
       type: String,
@@ -18,8 +19,12 @@ const loginSchema = mongoose.Schema({
       type: String,
       enum: ['admin','approver','requester'],
       default: 'requester'
-    }
+    },
+    passwordResetToken: String,
+    passwordResetExpires: Date,
   });
+
+
   loginSchema.pre('save', async function (next){
     if(!this.isModified('password')) return next()
     this.password = await bcrypt.hash(this.password,10)
@@ -29,6 +34,7 @@ const loginSchema = mongoose.Schema({
 loginSchema.methods.validatePassword = async function(candidatePassword,userPassword){
   return bcrypt.compare(candidatePassword,userPassword)
 }
+
 
   const loginData = mongoose.model("collections", loginSchema);
 

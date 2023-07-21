@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const { v4: uuidv4 } = require("uuid");
+const validator = require("validator");
 
 const dater = () => {
   let d = Date();
@@ -35,6 +36,12 @@ const formSchema = new mongoose.Schema({
     default: dater,
     select: false,
   },
+  // email: {
+  //   type: String,
+  //   required: true,
+  //   unique: true,
+  //   validate: [validator.isEmail, "Please provide a valid email"],
+  // },
   phoneNumber: {
     type: Number,
     required: true,
@@ -46,6 +53,12 @@ const formSchema = new mongoose.Schema({
       },
       message: "Phone number must be at least 10 digits long",
     },
+  },
+  studentCoordinator: {
+    type: String,
+  },
+  RegistrationNo: {
+    type: Number,
   },
   startDate: {
     type: Date,
@@ -63,6 +76,11 @@ const formSchema = new mongoose.Schema({
   },
   Sound: {
     type: Boolean,
+  },
+  isSubmitted: {
+    type: Boolean,
+    required: true,
+    default: true,
   },
 });
 

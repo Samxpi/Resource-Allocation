@@ -5,8 +5,6 @@ import computer from "../assets/undraw_progressive_app_m-9-ms.svg"
 
 
 const Login = () => {
-  
-
   return (
     <div>
       <div className="flex items-center justify-center">
