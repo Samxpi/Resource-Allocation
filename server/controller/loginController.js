@@ -1,8 +1,7 @@
 const loginForm = require("./../models/LoginModel");
 const jwt = require("jsonwebtoken");
 const createSend = require('./../utilities/jwtUtils')
-const sendEmail = require('./../utilities/email')
-const crypto = require("crypto");
+
 
 
 //signup

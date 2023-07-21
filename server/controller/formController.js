@@ -1,14 +1,40 @@
 const form = require("./../models/formModel");
 
+const sendEmail = require("./../utilities/email")
+
 exports.forms = async (req, res) => {
   const newForm = new form(req.body);
   try {
+
     const savedForm = await newForm.save();
+    const emailText = `
+    Hello, your form has been successfully submitted.\n
+    Form ID: ${savedForm.formID}\n
+    Resource Name: ${savedForm.resourceName}\n
+    Event Name: ${savedForm.eventName}\n
+    Event Details: ${savedForm.eventDetails}\n
+    Approved Time: ${savedForm.approvedTime}\n
+    Phone Number: ${savedForm.phoneNumber}\n
+    Start Date: ${savedForm.startDate}\n
+    End Date: ${savedForm.endDate}\n
+    Technician: ${savedForm.Technician}\n
+    Cleaning: ${savedForm.Cleaning}\n
+    Sound: ${savedForm.Sound}\n
+    Status: ${savedForm.isSubmitted}\n
+  `;
+    const mailOptions ={
+      from: 'resourcemsg@outlook.com',
+      to: savedForm.email,
+      subject:'Form submission confirmation',
+      text:emailText
+    }
+    await sendEmail(mailOptions)
     res.status(200).json({status: 'success',data:{
       newForm
     }});
     console.log(savedForm);
   } catch (e) {
+    console.log(e)
     res.status(500).json(e);
   }
 };
