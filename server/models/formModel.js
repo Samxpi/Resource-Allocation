@@ -14,6 +14,10 @@ const formSchema = new mongoose.Schema({
     unique: true,
     default: () => uuidv4(),
   },
+  status:{
+    type:String,
+    default:"Submitted",
+  },
   resourceName: {
     type: String,
     required: true,
