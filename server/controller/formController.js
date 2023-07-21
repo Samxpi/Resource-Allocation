@@ -30,6 +30,16 @@ exports.sortForm = async (req, res) => {
       .exec();
     console.log(results);
   } catch (err) {
-    res.status(500).json(err);
+    
   }
 };
+
+exports.changeFormStatus = async(req,res) =>{
+  const newStatus = req.body.newStatus;
+  const user = req.params.id;
+  try{
+    await form.findByIdAndUpdate(user, {status: newStatus});
+  }catch(err){
+    res.status(500).json(err);
+  }
+}
