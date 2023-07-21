@@ -5,7 +5,7 @@ const sendEmail = require("./../utilities/email")
 exports.forms = async (req, res) => {
   const newForm = new form(req.body);
   try {
-
+//not working with frontend
     const savedForm = await newForm.save();
     const emailText = `
     Hello, your form has been successfully submitted.\n
