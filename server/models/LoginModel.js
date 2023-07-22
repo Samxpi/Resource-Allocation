@@ -20,8 +20,14 @@ const loginSchema = mongoose.Schema({
       enum: ['admin','approver','requester'],
       default: 'requester'
     },
-    passwordResetToken: String,
-    passwordResetExpires: Date,
+    passwordResetToken:{
+      type: String,
+      select: false
+    },
+    passwordResetExpires: {
+      type: Date,
+      select: false
+    },
   });
 
 
@@ -34,7 +40,14 @@ const loginSchema = mongoose.Schema({
 loginSchema.methods.validatePassword = async function(candidatePassword,userPassword){
   return bcrypt.compare(candidatePassword,userPassword)
 }
-
+loginSchema.methods.resetPassToken = async function(){
+  const reset = crypto.randomBytes(6).toString('hex')
+  this.passwordResetToken = crypto.createHash('sha256').update(reset).digest('hex')
+  this.passwordResetExpires = Date.now() + 10 * 60 * 1000
+  console.log(reset)
+  console.log(this.passwordResetToken)
+  return reset
+}
 
   const loginData = mongoose.model("collections", loginSchema);
 
