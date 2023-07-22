@@ -36,12 +36,12 @@ const formSchema = new mongoose.Schema({
     default: dater,
     select: false,
   },
-  // email: {
-  //   type: String,
-  //   required: true,
-  //   unique: true,
-  //   validate: [validator.isEmail, "Please provide a valid email"],
-  // },
+  email: {
+    type: String,
+    required: true,
+    unique: true,
+    validate: [validator.isEmail, "Please provide a valid email"],
+  },
   phoneNumber: {
     type: Number,
     required: true,
