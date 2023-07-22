@@ -1,11 +1,9 @@
 const form = require("./../models/formModel");
-
 const sendEmail = require("./../utilities/email")
 
 exports.forms = async (req, res) => {
-  const newForm = new form(req.body);
+  const newForm = new form(req.body);  // does not work with front end to use this with frontend comment the whole email part
   try {
-//not working with frontend
     const savedForm = await newForm.save();
     const emailText = `
     Hello, your form has been successfully submitted.\n
@@ -38,15 +36,14 @@ exports.forms = async (req, res) => {
     res.status(500).json(e);
   }
 };
-
-exports.deleteForm = async(req,res)=> {
-  try{
-  await form.findByIdAndDelete(req.params.id)
-  res.status(200).json({status:'success',data : null})
+exports.deleteForm = async (req, res) => {
+  try {
+    await form.findByIdAndDelete(req.params.id);
+    res.status(200).json({ status: "success", data: null });
   } catch (e) {
-    res.status(500).json(e)
+    res.status(500).json(e);
   }
-}
+};
 //need the email in form when sending it to database
 exports.sortForm = async (req, res) => {
   const currentDate = new Date();
@@ -55,17 +52,15 @@ exports.sortForm = async (req, res) => {
       .find({ startDate: { $gte: currentDate } })
       .exec();
     console.log(results);
-  } catch (err) {
-    
-  }
+  } catch (err) {}
 };
 
-exports.changeFormStatus = async(req,res) =>{
+exports.changeFormStatus = async (req, res) => {
   const newStatus = req.body.newStatus;
   const user = req.params.id;
-  try{
-    await form.findByIdAndUpdate(user, {status: newStatus});
-  }catch(err){
+  try {
+    await form.findByIdAndUpdate(user, { status: newStatus });
+  } catch (err) {
     res.status(500).json(err);
   }
-}
+};
