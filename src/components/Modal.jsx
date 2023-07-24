@@ -4,59 +4,60 @@ import { AiOutlineCloseCircle } from "react-icons/ai";
 import dayjs from "dayjs";
 import axios from "axios";
 
-
 const { RangePicker } = DatePicker;
 
 const Modal = ({ visible, onClose }) => {
   const [dates, setDate] = useState([]);
-  const [eventName, setEventName] = useState(false);
-  const [eventDetails, setEventDetails] = useState(false);
-  const [phoneNumber, setPhoneNumber] = useState(false);
-  const [Technician,setTechnician] = useState(false);
-  const [Cleaning,setCleaning] = useState(false);
-  const [Sound,setSound] = useState(false);
-  const resourceName = document.cookie.split(';')[0].split('=')[1];
+  const [eventName, setEventName] = useState("");
+  const [eventDetails, setEventDetails] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [email, setEmail] = useState(""); // New state for email
+  const [Technician, setTechnician] = useState(false);
+  const [Cleaning, setCleaning] = useState(false);
+  const [Sound, setSound] = useState(false);
+  const resourceName = document.cookie.split(";")[0].split("=")[1];
 
   const disablePastDates = (current) => {
     return current && current < dayjs().endOf("day");
   };
 
+  function changeSound() {
+    setSound((val) => !val);
+  }
 
-  function changeSound(){
-    setSound(val=>!val)
+  function changeTechnician() {
+    setTechnician((val) => !val);
   }
-  
-  function changeTechnician(){
-    setTechnician(val=>!val)
+
+  function changeCleaning() {
+    setCleaning((val) => !val);
   }
-  function changeCleaning(){
-    setCleaning(val=>!val)
-  } 
+
   function filterByDates(values) {
-    const startDate = dayjs(values[0]).add(1, 'day').startOf('day');
-    const endDate = dayjs(values[1]).endOf('day');
+    const startDate = dayjs(values[0]).add(1, "day").startOf("day");
+    const endDate = dayjs(values[1]).endOf("day");
     setDate([startDate, endDate]);
   }
 
- 
-  async function submit(e){
+  async function submit(e) {
     e.preventDefault();
     var formData = {
       resourceName: resourceName,
       eventName: eventName,
       eventDetails: eventDetails,
       phoneNumber: phoneNumber,
+      email: email, // Include email in the formData
       startDate: dates[0],
       endDate: dates[1],
       Technician: Technician,
       Cleaning: Cleaning,
-      Sound: Sound
-    }
-    try{
-      axios.post("http://localhost:8000/home",formData);
+      Sound: Sound,
+    };
+    try {
+      axios.post("http://localhost:8000/home", formData);
       onClose();
-    } catch(e){
-      console.log(e)
+    } catch (e) {
+      console.log(e);
     }
   }
 
@@ -64,7 +65,7 @@ const Modal = ({ visible, onClose }) => {
   return (
     <div
       id="container"
-      onClick={onclose}
+      onClick={onClose}
       className="fixed inset-0 bg-black bg-opacity-30 backdrop-blur-sm flex justify-center items-center"
     >
       <div
@@ -123,15 +124,44 @@ const Modal = ({ visible, onClose }) => {
             </div>
           </div>
           <div className="flex flex-col p-2">
-            <p className="text-l font-bold">Necessary Facilites</p>
+            <p className="text-l font-bold">Necessary Facilities</p>
           </div>
           <div className="flex flex-row px-2">
             <p>Sound Equipment</p>
-            <input type="checkbox" name="" id="" className=" mx-2 my-2" checked={Sound}  onChange={changeSound}/>
+            <input
+              type="checkbox"
+              name=""
+              id=""
+              className=" mx-2 my-2"
+              checked={Sound}
+              onChange={changeSound}
+            />
             <p className="ml-7">Cleaning</p>
-            <input type="checkbox" name="" id="" className="mx-2 my-2" checked={Cleaning}  onChange={changeCleaning}/>
+            <input
+              type="checkbox"
+              name=""
+              id=""
+              className="mx-2 my-2"
+              checked={Cleaning}
+              onChange={changeCleaning}
+            />
             <p className="ml-7">Technician</p>
-            <input type="checkbox" name="" id="" className="mx-2 my-2" checked={Technician}  onChange={changeTechnician}/>
+            <input
+              type="checkbox"
+              name=""
+              id=""
+              className="mx-2 my-2"
+              checked={Technician}
+              onChange={changeTechnician}
+            />
+          </div>
+          <div className="flex flex-col p-2">
+            <p className="py-2 text-l font-bold">Email</p>
+            <input
+              type="email"
+              className="border-2 border-gray-700 p-2 rounded w-[200px]"
+              onChange={(e) => setEmail(e.target.value)}
+            />
           </div>
           <div className="flex p-2">
             <button
