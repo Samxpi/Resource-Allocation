@@ -5,6 +5,7 @@ import Sidebar from "./components/Sidebar";
 import Bookings from "./components/Bookings";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Cancellation from "./components/Cancellation";
+import ApproverPage from "./components/ApprovPage";
 
 function App() {
   return (
@@ -36,6 +37,14 @@ function App() {
               <>
                 <Sidebar />
                 <Cancellation/>
+              </>
+            }
+          />
+          <Route
+            path="/Approver"
+            element={
+              <>
+                <ApproverPage/>
               </>
             }
           />
